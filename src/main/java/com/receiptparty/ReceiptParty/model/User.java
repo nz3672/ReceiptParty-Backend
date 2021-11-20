@@ -5,6 +5,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @Document
 @AllArgsConstructor
@@ -14,7 +16,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private PartyList partyList;
+    private List<PartyList> partyList;
 }
 
 
