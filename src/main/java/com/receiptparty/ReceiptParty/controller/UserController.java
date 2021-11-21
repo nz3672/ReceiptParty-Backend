@@ -3,10 +3,7 @@ package com.receiptparty.ReceiptParty.controller;
 import com.receiptparty.ReceiptParty.model.User;
 import com.receiptparty.ReceiptParty.services.UserServices;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,11 @@ public class UserController {
         return userServices.getAllUser();
     }
 
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable(value = "id") String userID) {
+        return userServices.findByID(userID);
+    }
+
     @PostMapping
     public String addUser(User user){
         try {
@@ -30,5 +32,15 @@ public class UserController {
             return illegalStateException.getMessage();
         }
         return "Success";
+    }
+
+    @PutMapping("/{id}")
+    public String updateUser(@PathVariable(value = "id") String userID,@RequestBody User user) {
+        try {
+            userServices.updateUser(userID, user);
+        } catch (IllegalStateException illegalStateException) {
+            return illegalStateException.getMessage();
+        }
+        return "Update successfully";
     }
 }
